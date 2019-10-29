@@ -12,12 +12,20 @@
         <label for="data">JSON</label>
         <textarea id="data" class="form-control" rows="5"></textarea>
       </div>
-      <button id="post" type="button" class="btn btn-primary">POST</button>
+      <button id="post" type="button" class="btn btn-primary">POST WITH AXIOS</button>
+    </form>
+
+    <form role="form" class="form" onsubmit="return false;">
+      <div class="form-group">
+        <label for="data">JSON</label>
+        <textarea id="data" class="form-control" rows="5"></textarea>
+      </div>
+      <button id="post2" type="button" class="btn btn-primary">POST WITH XMLHTTPRequest</button>
     </form>
 
     <div id="output" class="container"></div>
 
-    <script src="/axios.min.js"></script>
+    <script src="/axios.js"></script>
     <script>
       (function () {
         var output = document.getElementById('output');
@@ -40,6 +48,32 @@
               output.className = 'container text-danger';
               output.innerHTML = err.message;
             });
+        };
+        
+        document.getElementById('post2').onclick = function () {
+          var data = document.getElementById('data').value;
+
+          var request = new XMLHttpRequest();
+
+    	    request.open('POST', 'http://localhost:3000/postStringResponse/server', true);
+          request.setRequestHeader('content-type', 'text/json');
+          request.responseType = 'json'
+
+    	    // Listen for ready state
+    	    request.onreadystatechange = function handleLoad() {
+    	      if (!request || request.readyState !== 4) {
+    	        return;
+    	      }
+
+            console.log('REQUEST: ',request);
+    				console.log('HEADERS: ',request.getAllResponseHeaders())
+    				console.log('RESPONSE: ',response);
+
+    	      // Clean up request
+    	      request = null;
+    	    };
+
+          request.send(null);
         };
       })();
     </script>

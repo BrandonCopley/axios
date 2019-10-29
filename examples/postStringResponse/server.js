@@ -1,21 +1,26 @@
 module.exports = function (req, res) {
 
-  res.writeHead(500);
-  res.write('This is my error message');
-  res.end();
+  console.log('API HIT');
 
-  /*var data = '';
+  var data = '';
 
   req.on('data', function (chunk) {
     data += chunk;
   });
 
   req.on('end', function () {
-    console.log('POST data received');
-    res.writeHead(200, {
-      'Content-Type': 'text/json'
+    //200 writes json data
+    // res.writeHead(200, {
+    //   'Content-Type': 'text/json'
+    // });
+    //res.write(JSON.stringify({"key":"value"}));
+
+    //400 writes text data
+    res.writeHead(400, {
+      'Content-Type': 'text/plain'
     });
-    res.write(JSON.stringify(data));
+    res.write("response goes here");
     res.end();
-  });*/
+  });
+
 };
